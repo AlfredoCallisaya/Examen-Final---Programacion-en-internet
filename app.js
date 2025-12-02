@@ -17,6 +17,18 @@ app.get("/estado", (req, res) => {
 });
 
 app.post("/datos", (req, res) => {
+  const datos = req.body;
+
+  res.json({
+    mensaje: "Datos recibidos exitosamente",
+    datosRecibidos: {
+      nombre: datos.nombre,
+      correo: datos.correo,
+      edad: datos.edad,
+    },
+    fechaRegistro: new Date(),
+    horaRegistro: Date.now(),
+  });
 });
 
 app.put("/datos/:id", (req, res) => {
