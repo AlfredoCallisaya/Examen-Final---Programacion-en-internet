@@ -1,15 +1,16 @@
 const express = require("express");
 const app = express();
 const PORT = process.env.PORT || 3000;
-const fecha = new Date();
+let fecha = new Date();
 
 dia = ("día:", fecha.getDay());
-mes = ("mes:", fecha.getMonth());
+mes = ("mes:", fecha.getMonth()) + 1;
 año = ("año:", fecha.getFullYear());
-hora = ("hora:", fecha.getHours());
-minutos = ("hora:", fecha.getMinutes());
-segundos = ("hora:", fecha.getSeconds());
-mSegundos = ("hora:", fecha.getMilliseconds());
+hora = ("hora:", fecha.getHours() - 4);
+minutos = ("minutos:", fecha.getMinutes());
+segundos = ("segundos:", fecha.getSeconds());
+mSegundos = ("mSegundos:", fecha.getMilliseconds());
+
 // Middleware para parsear JSON
 app.use(express.json());
 
@@ -19,7 +20,7 @@ app.get("/estado", (req, res) => {
     version: "1.11.2",
     entorno: "production",
     estado: "Servicio funcionando correctamente",
-    fecha: new Date(),
+    fecha: `${año}-${mes}-${dia} ${hora}:${minutos}:${segundos}.${mSegundos}`,
     hora: Date.now(),
   });
 });
@@ -34,9 +35,7 @@ app.post("/datos", (req, res) => {
       correo: datos.correo,
       edad: datos.edad,
     },
-    
-
-    fechaRegistro: dia,
+    fechaRegistro: `${año}-${mes}-${dia} ${hora}:${minutos}:${segundos}.${mSegundos}`,
     horaRegistro: Date.now(),
   });
 });
